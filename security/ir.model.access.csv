@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_catalogue,service_catalogue,model_service_catalogue,base.group_user,1,1,1,1
+access_service_catalogue_role,service_catalogue_role,model_service_catalogue_role,base.group_user,1,1,1,1
+access_service_catalogue_assign,service_catalogue_assign,model_service_catalogue_assign,base.group_user,1,1,1,1
