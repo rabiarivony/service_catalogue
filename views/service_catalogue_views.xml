@@ -8,7 +8,8 @@
 			web_icon="service_catalogue,static/description/icon.png"
 			sequence="45"/>
 
-		
+		<menuitem name="Configuration" id="menu_main_config" parent="menu_main_sc" sequence="200"/>
+
 		<!-- SERVICE CATALOGUE VIEW DEFINITION -->
 
 		<!-- explicit search view definition -->
@@ -51,6 +52,21 @@
 		</record>
 		
 		<!-- explicit form view definition -->
+
+		<record id="action_sc_assign_form" model="ir.actions.act_window">
+			<field name="name">Assignation</field>
+			<field name="res_model">service.catalogue.assign</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,gantt</field>
+			<field name="view_id" ref="view_service_catalogue_assign_form"/>
+			<field name="search_view_id" ref="view_sc_assign_search_filter"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				 Click to assign catalogue service.
+			  </p>
+			</field>
+		</record>
+
 		<record id="view_service_catalogue_form" model="ir.ui.view">
 			<field name="name">view.service.catalogue.form</field>
 			<field name="model">service.catalogue</field>
@@ -64,10 +80,7 @@
 								 <field name="active" widget="boolean_button"
 									  options='{"terminology": "archive"}'/>
 							</button>
-						<!-- 
-							<button class="oe_stat_button" type="action" icon="fa-list-alt" name="%(action_service_catalogue_tree)d" string="" context="{'search_default_role_id': role_id, 'default_role_id': role_id}" help="Display all services related to this role">
-								<field name="role_count" string="Role(s)" widget="statinfo"/>
-							</button>	 -->						
+						
 						</div>
 
 						<div class="oe_title">
@@ -75,15 +88,12 @@
 								<field name="name" placeholder="Service Catalogue"/>
 							</h1>
 						</div>
-						<group>
-							<group>
-								<field name="visibility"/>
-							</group>
-						</group>
+						
 						<group name="tasks" string="Task(s)">
 							<field name="task_ids" nolabel="1">
 								<tree string="Tasks" editable="bottom">
 									<field name="name" string="Description"/>
+									<field name="user_id" required="1"/>
 									<field name="details" string="Details"/>
 									<field name="planned_hours" string="Duration"/>
 								</tree>
@@ -106,11 +116,7 @@
 			res_model="service.catalogue"
 			view_mode="tree,form" />
  -->
-		<menuitem id="menu_service_catalogue"
-			name="Service Catalogue"
-			parent="menu_main_sc"
-			action="action_service_catalogue_tree"
-			sequence="10" />
+		<menuitem id="menu_service_catalogue" name="Service Catalogue" parent="menu_main_config" action="action_service_catalogue_tree" sequence="10" />
 
 		
 		<!-- ASSIGNATION VIEW DEFINITION -->
@@ -193,6 +199,18 @@
 								<field name="user_id"/>
 							</group>
 						</group>
+
+						<group name="Tasks" string="Task(s)">
+							<field name="task_ids" nolabel="1">
+								<tree string="Tasks" editable="bottom">
+									<field name="name" string="Description"/>
+									<field name="user_id" required="1"/>
+									<field name="details" string="Details"/>
+									<field name="planned_hours" string="Duration"/>
+								</tree>
+							</field>
+						</group>
+
 					</sheet>
 	
 				</form>
@@ -212,7 +230,6 @@
 			  </p>
 			</field>
 		</record>
-
 		<menuitem id="menu_sc_assign" name="Assignation" parent="menu_main_sc" action="action_sc_assign" sequence="20"/>
 
 	</data>
